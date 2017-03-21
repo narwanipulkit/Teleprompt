@@ -1,0 +1,46 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="pn3.teleprompt.Scripts">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_gravity="center"
+        android:textSize="25sp"
+        android:visibility="gone"
+        android:text="No scripts yet. Start by using the + button."/>
+    
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="50dp"
+        app:fab_addButtonColorNormal="@color/colorAccent"
+        tools:context="pn3.teleprompt.Scripts"
+        >
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:onClick="newScript"
+            tools:context="pn3.teleprompt.Scripts"
+            app:fab_icon="@drawable/ic_note_add_white_48dp"
+
+            />
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            app:fab_icon="@drawable/ic_cloud_download_white_48dp"
+            />
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+</FrameLayout>

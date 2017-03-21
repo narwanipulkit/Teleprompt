@@ -1,0 +1,116 @@
+<FrameLayout
+    android:id="@+id/container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
+    android:layout_width="match_parent">
+<LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context="pn3.teleprompt.New">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:layout_margin="16dp"
+        android:text="@string/q_begin" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/video_card"
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:layout_height="140dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:src="@drawable/video"
+            android:layout_gravity="center_vertical"
+            android:layout_height="80dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginLeft="16dp"
+            android:textSize="40sp"
+            android:layout_height="wrap_content"
+            android:text="Video"
+            />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:textSize="20sp"
+                android:layout_marginLeft="16dp"
+                android:layout_height="wrap_content"
+                android:text="Record a video with text on the side."
+                />
+
+        </LinearLayout>
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/text_card"
+        android:layout_width="match_parent"
+        android:layout_margin="16dp"
+        android:layout_height="140dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:src="@drawable/text"
+                android:layout_gravity="center_vertical"
+                android:layout_height="80dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="40sp"
+                    android:layout_height="wrap_content"
+                    android:text="Text"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_height="wrap_content"
+                    android:text="Just text if you are recording from another device"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="90dp"></View>
+
+
+
+
+
+</LinearLayout>
+</ScrollView>
+</FrameLayout>
