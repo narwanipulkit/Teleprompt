@@ -11,6 +11,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="pn3.teleprompt.Script">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="You can edit and save your script here."/>
+
     <android.support.design.widget.TextInputEditText
         android:id="@+id/titl"
         android:layout_width="match_parent"

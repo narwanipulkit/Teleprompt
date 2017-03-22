@@ -9,6 +9,8 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.EditText;
@@ -35,7 +37,8 @@ public class Script extends AppCompatActivity implements View.OnClickListener {
             inTitle=b.getString("title");
             inData=b.getString("data");
             mode=b.getString("mode");
-            id=b.getInt("id");
+            if(mode.equals("edit"))
+                id=b.getInt("id");
         }
 
         title=(TextInputEditText)findViewById(R.id.titl);
@@ -45,14 +48,37 @@ public class Script extends AppCompatActivity implements View.OnClickListener {
         data.setMovementMethod(new ScrollingMovementMethod());
         title.setText(inTitle);
         data.setText(inData);
-        AppCompatButton cancel=(AppCompatButton)findViewById(R.id.cancel);
-        AppCompatButton save=(AppCompatButton)findViewById(R.id.save);
+        cancel=(AppCompatButton)findViewById(R.id.cancel);
+        save=(AppCompatButton)findViewById(R.id.save);
         cancel.setOnClickListener(this);
         save.setOnClickListener(this);
+        save.setEnabled(false);
 
 
+        TextWatcher tw=new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String t=title.getText().toString();
+                String script=data.getText().toString();
+                if(!t.equals("")&&!script.equals(""))
+                    save.setEnabled(true);
+                else
+                    save.setEnabled(false);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        };
+        title.addTextChangedListener(tw);
+        data.addTextChangedListener(tw);
 
 
     }
@@ -66,6 +92,8 @@ public class Script extends AppCompatActivity implements View.OnClickListener {
             case R.id.save:
                 String t=title.getText().toString();
                 String script=data.getText().toString();
+                if(t!=null&&script!=null)
+                    save.setEnabled(true);
                 if(t!=null&&script!=null)
                     saveToDb(t,script);
         }

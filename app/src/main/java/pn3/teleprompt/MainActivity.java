@@ -28,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
         Intent i=new Intent(MainActivity.this,Script.class);
         startActivity(i);
     }
+
+    public void driveSync(View v){
+        Intent i=new Intent(MainActivity.this,DriveSync.class);
+        startActivity(i);
+    }
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a

@@ -37,7 +37,7 @@
             android:authorities="DataProvider" />
 
         <activity android:name=".SelectScript" />
-        <activity android:name=".Drive">
+        <activity android:name=".DriveSync">
             <meta-data android:name="com.google.android.apps.drive.APP_ID" android:value="id=986038669156-q742p8gkuf3a1tt2fs9g7vvdqqcu41af.apps.googleusercontent.com" />
             <intent-filter>
                 <action android:name="com.google.android.apps.drive.DRIVE_OPEN" />

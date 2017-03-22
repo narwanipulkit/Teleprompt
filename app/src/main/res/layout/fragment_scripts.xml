@@ -39,6 +39,8 @@
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:onClick="driveSync"
+
             app:fab_icon="@drawable/ic_cloud_download_white_48dp"
             />
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
