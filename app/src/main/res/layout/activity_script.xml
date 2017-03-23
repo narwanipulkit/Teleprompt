@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:nextFocusDown="@+id/titl"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_script"
     android:layout_width="match_parent"
@@ -14,17 +15,22 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:textSize="20sp"
         android:text="You can edit and save your script here."/>
 
     <android.support.design.widget.TextInputEditText
+        android:nextFocusDown="@+id/data"
         android:id="@+id/titl"
+        android:contentDescription="Enter Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Title"/>
 
     <android.support.design.widget.TextInputEditText
+        android:nextFocusDown="@+id/save"
         android:id="@+id/data"
+        android:contentDescription="Enter the data"
         android:layout_width="match_parent"
         android:hint="Text"
         android:isScrollContainer="true"
@@ -38,11 +44,15 @@
         android:layout_height="wrap_content">
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/cancel"
+        android:contentDescription="cancel button"
         android:layout_width="wrap_content"
         android:text="Cancel"
         android:layout_height="wrap_content" />
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/save"
+
+            android:contentDescription="Save Button"
+            android:nextFocusLeft="@+id/cancel"
             android:layout_marginLeft="100dp"
             android:layout_width="wrap_content"
             android:text="Save"

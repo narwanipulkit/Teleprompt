@@ -8,7 +8,6 @@
     tools:context="pn3.teleprompt.DriveSync">
 
     <TextView
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
@@ -20,6 +19,7 @@
 
     <ProgressBar
         android:id="@+id/progress"
+        android:contentDescription="Waiting for Google Drive."
         android:layout_gravity="center"
         android:layout_width="70dp"
         android:layout_height="70dp" />

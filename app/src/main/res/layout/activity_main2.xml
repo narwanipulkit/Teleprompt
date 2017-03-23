@@ -11,12 +11,16 @@
     <TextView
         android:layout_margin="16dp"
         android:textSize="20sp"
+        android:nextFocusDown="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:contentDescription="Select a script"
         android:text="Select a script or create new"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
+        android:contentDescription="Various available scripts"
+        android:nextFocusDown="@+id/fab_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     </LinearLayout>
@@ -29,27 +33,34 @@
         android:layout_gravity="center"
         android:textSize="25sp"
         android:visibility="gone"
+        android:contentDescription="No Scripts Saved"
         android:text="No scripts yet. Start by using the + button."/>
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/fab_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
+        android:contentDescription="Add Scripts"
         app:fab_addButtonColorNormal="@color/colorAccent"
         tools:context="pn3.teleprompt.Scripts"
         >
         <com.getbase.floatingactionbutton.FloatingActionButton
+
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:id="@+id/newScript"
+            android:contentDescription="Create New Script"
             tools:context="pn3.teleprompt.Scripts"
             app:fab_icon="@drawable/ic_note_add_white_48dp"
 
             />
         <com.getbase.floatingactionbutton.FloatingActionButton
+            android:nextFocusDown="@+id/newScript"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             app:fab_icon="@drawable/ic_cloud_download_white_48dp"
+            android:contentDescription="Sync From google drive"
             />
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
