@@ -3,12 +3,14 @@ package pn3.teleprompt;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -59,6 +61,7 @@ public class Stored extends Fragment {
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 View v=LayoutInflater.from(parent.getContext()).inflate(R.layout.item_stored,parent,false);
+
                 return new MyViewHolder(v);
             }
 
@@ -67,6 +70,18 @@ public class Stored extends Fragment {
                 MyViewHolder mv= (MyViewHolder)holder;
                 File dir=new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES),"teleprompt");
                 mv.title.setText(dir.list()[position]);
+                String url="content://DataProvider/video";
+                if(position>=0) {
+                    Cursor c = getActivity().getContentResolver().query(Uri.parse(url),null,"title=?",new String[]{dir.list()[position]},null);
+                    if(c.getCount()>0) {
+                        c.moveToFirst();
+                        mv.place.setText(c.getString(2));
+                        mv.date.setText(c.getString(3));
+                    }
+                }
+
+
+
             }
 
             @Override
@@ -94,12 +109,14 @@ public class Stored extends Fragment {
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView title;
+        public TextView title,place,date;
 
         public MyViewHolder(View view) {
             super(view);
             view.setOnClickListener(this);
             title = (TextView) view.findViewById(R.id.list_title);
+            place=(TextView)view.findViewById(R.id.place);
+            date=(TextView)view.findViewById(R.id.date);
 
 
         }

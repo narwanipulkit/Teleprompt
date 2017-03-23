@@ -33,12 +33,15 @@ public class DataProvider extends ContentProvider {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
+            Log.e("DataProvider:","Database Created");
             db.execSQL("CREATE TABLE data (_id INTEGER PRIMARY KEY AUTOINCREMENT , title TEXT NOT NULL , data TEXT NOT NULL)");
+            db.execSQL("CREATE TABLE video (_id INTEGER PRIMARY KEY AUTOINCREMENT , title TEXT NOT NULL , place TEXT NOT NULL, date TEXT NOT NULL)");
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             db.execSQL("DROP TABLE IF EXISTS data");
+            db.execSQL("DROP TABLE IF EXISTS video");
             onCreate(db);
         }
     }
@@ -58,7 +61,11 @@ public class DataProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] strings, String s, String[] strings1, String s1) {
         SQLiteQueryBuilder sqb=new SQLiteQueryBuilder();
-        sqb.setTables("data");
+        if(uri.getPath().equals("/data"))
+            sqb.setTables("data");
+        else{
+            sqb.setTables("video");
+        }
         Cursor c=sqb.query(db,strings,s,strings1,null,null,s1);
         return c;
     }
@@ -72,19 +79,27 @@ public class DataProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(Uri uri, ContentValues contentValues) {
-        Log.e("Insert","2DB");
-        db.insert("data","",contentValues);
+        if(uri.getPath().equals("/data"))
+            db.insert("data","",contentValues);
+        else
+            db.insert("video","",contentValues);
         return null;
     }
 
     @Override
     public int delete(Uri uri, String s, String[] strings) {
-        return db.delete("data",s,strings);
+        if(uri.getPath().equals("/data"))
+            return db.delete("data",s,strings);
+        else
+            return db.delete("video",s,strings);
     }
 
     @Override
     public int update(Uri uri, ContentValues contentValues, String s, String[] strings) {
-        db.update("data",contentValues,s,strings);
+        if(uri.getPath().equals("/data"))
+            db.update("data",contentValues,s,strings);
+        else
+            db.update("video",contentValues,s,strings);
         return 0;
     }
 }

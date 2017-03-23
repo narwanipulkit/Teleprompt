@@ -63,7 +63,7 @@ public class SelectScript extends AppCompatActivity {
 
             @Override
             public int getItemCount() {
-                String u="content://DataProvider";
+                String u="content://DataProvider/data";
                 String projection[]={"(_id","title","data"};
                 Uri reqUri=Uri.parse(u);
                 c=managedQuery(reqUri,null,null,null,"title");

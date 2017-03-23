@@ -16,7 +16,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:layout_margin="16dp"
         android:text="@string/q_begin" />
 
@@ -39,18 +39,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
+            android:gravity="center"
             android:layout_height="match_parent">
         <TextView
             android:layout_width="match_parent"
             android:layout_marginLeft="16dp"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:layout_height="wrap_content"
             android:text="Video"
             />
 
             <TextView
                 android:layout_width="match_parent"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:layout_marginLeft="16dp"
                 android:layout_height="wrap_content"
                 android:text="Record a video with text on the side."
@@ -81,19 +82,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
+                android:gravity="center"
                 android:layout_height="match_parent">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_marginLeft="16dp"
-                    android:textSize="40sp"
+                    android:textSize="30sp"
                     android:layout_height="wrap_content"
                     android:text="Text"
                     />
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:layout_marginLeft="16dp"
+                    android:layout_gravity="bottom"
                     android:layout_height="wrap_content"
                     android:text="Just text if you are recording from another device"
                     />
@@ -106,8 +109,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="90dp"></View>
-
-
 
 
 

@@ -120,10 +120,11 @@ public class Scripts extends Fragment {
 
             @Override
             public int getItemCount() {
-                String u="content://DataProvider";
+                String u="content://DataProvider/data";
                 String projection[]={"(_id","title","data"};
                 Uri reqUri=Uri.parse(u);
-                c=getActivity().managedQuery(reqUri,null,null,null,"title");
+                c=getActivity().getContentResolver().query(reqUri,null,null,null,"_id");
+                Log.e("Count", String.valueOf(c.getCount()));
                 if(c==null)
                     return 0;
                 return c.getCount();
