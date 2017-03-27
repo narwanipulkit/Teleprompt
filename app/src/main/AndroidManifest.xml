@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.hardware.camera" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -16,10 +16,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCpd0p41b1b2X0K_6uk6EUiwmZ6vFg-DL4"/>
+            android:value="AIzaSyCpd0p41b1b2X0K_6uk6EUiwmZ6vFg-DL4" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -44,11 +44,26 @@
 
         <activity android:name=".SelectScript" />
         <activity android:name=".DriveSync">
-            <meta-data android:name="com.google.android.apps.drive.APP_ID" android:value="id=986038669156-q742p8gkuf3a1tt2fs9g7vvdqqcu41af.apps.googleusercontent.com" />
+            <meta-data
+                android:name="com.google.android.apps.drive.APP_ID"
+                android:value="id=986038669156-q742p8gkuf3a1tt2fs9g7vvdqqcu41af.apps.googleusercontent.com" />
+
             <intent-filter>
                 <action android:name="com.google.android.apps.drive.DRIVE_OPEN" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".ScriptsWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/scripts_widget_info" />
+        </receiver>
+        <service android:name="WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>

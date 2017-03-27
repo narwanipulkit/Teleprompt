@@ -20,7 +20,6 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Sample Text"
                 android:textSize="40sp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="26dp"
@@ -32,9 +31,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:contentDescription="Start Button"
+        android:contentDescription="@string/start_button_description"
         android:layout_gravity="bottom|center_horizontal"
-        android:text="Start"
+        android:text="@string/start_button"
         android:textColor="#fff"
         android:background="#2ba"/>
 </FrameLayout>

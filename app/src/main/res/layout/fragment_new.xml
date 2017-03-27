@@ -25,7 +25,7 @@
         android:id="@+id/video_card"
         android:nextFocusDown="@+id/text_card"
         android:layout_width="match_parent"
-        android:contentDescription="Start a Video"
+        android:contentDescription="@string/start_vid_description"
         android:layout_margin="16dp"
         android:layout_height="140dp">
 
@@ -46,10 +46,10 @@
             android:layout_height="match_parent">
         <TextView
             android:layout_width="match_parent"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:textSize="30sp"
             android:layout_height="wrap_content"
-            android:text="Video"
+            android:text="@string/video"
             />
 
             <TextView
@@ -57,7 +57,7 @@
                 android:textSize="18sp"
                 android:layout_marginLeft="16dp"
                 android:layout_height="wrap_content"
-                android:text="Record a video with text on the side."
+                android:text="@string/vid_intro"
                 />
 
         </LinearLayout>
@@ -70,7 +70,7 @@
         android:id="@+id/text_card"
         android:layout_width="match_parent"
         android:layout_margin="16dp"
-        android:contentDescription="Start just with text"
+        android:contentDescription="@string/start_text_description"
         android:layout_height="140dp">
 
         <LinearLayout
@@ -90,19 +90,19 @@
                 android:layout_height="match_parent">
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
                     android:textSize="30sp"
                     android:layout_height="wrap_content"
-                    android:text="Text"
+                    android:text="@string/text"
                     />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:textSize="18sp"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
                     android:layout_gravity="bottom"
                     android:layout_height="wrap_content"
-                    android:text="Just text if you are recording from another device"
+                    android:text="@string/text_intro"
                     />
 
             </LinearLayout>

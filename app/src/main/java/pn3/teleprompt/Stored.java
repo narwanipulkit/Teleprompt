@@ -2,12 +2,15 @@ package pn3.teleprompt;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.support.v4.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,6 +28,9 @@ import java.io.File;
 public class Stored extends Fragment {
 
     RecyclerView rv;
+    Loader<Cursor> cursorLoader;
+    Cursor c;
+    static final int LOADER_ID=3;
 
     public Stored() {
         // Required empty public constructor
@@ -34,7 +40,29 @@ public class Stored extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        rv.getAdapter().notifyDataSetChanged();
+        cursorLoader=getLoaderManager().initLoader(LOADER_ID, null, new LoaderManager.LoaderCallbacks<Cursor>() {
+                    @Override
+                    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+                        String url = "content://DataProvider/video";
+                        CursorLoader curLoader = new CursorLoader(getContext(), Uri.parse(url), null, null, null, "_id");
+                        rv.getAdapter().notifyDataSetChanged();
+                        return curLoader;
+                    }
+
+                    @Override
+                    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+                        c=data;
+                        rv.getAdapter().notifyDataSetChanged();
+
+                    }
+
+                    @Override
+                    public void onLoaderReset(Loader<Cursor> loader) {
+
+                    }
+                }
+
+        );
 
     }
 
@@ -47,6 +75,7 @@ public class Stored extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
     }
 
     @Override
@@ -57,6 +86,7 @@ public class Stored extends Fragment {
         rv=(RecyclerView)v.findViewById(R.id.recycler);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         rv.setLayoutManager(mLayoutManager);
+
         rv.setAdapter(new RecyclerView.Adapter() {
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -70,9 +100,12 @@ public class Stored extends Fragment {
                 MyViewHolder mv= (MyViewHolder)holder;
                 File dir=new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES),"teleprompt");
                 mv.title.setText(dir.list()[position]);
+                if(getItemCount()==0){
+                    mv.empty.setVisibility(View.VISIBLE);
+                }
                 String url="content://DataProvider/video";
                 if(position>=0) {
-                    Cursor c = getActivity().getContentResolver().query(Uri.parse(url),null,"title=?",new String[]{dir.list()[position]},null);
+                    c = getActivity().getContentResolver().query(Uri.parse(url),null,"title=?",new String[]{dir.list()[position]},null);
                     if(c.getCount()>0) {
                         c.moveToFirst();
                         mv.place.setText(c.getString(2));
@@ -87,10 +120,36 @@ public class Stored extends Fragment {
             @Override
             public int getItemCount() {
                 File dir=new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES),"teleprompt");
-
-                return dir.list().length;
+                if(dir.list()!=null)
+                    return dir.list().length;
+                else
+                    return 0;
             }
         });
+
+        cursorLoader=getLoaderManager().initLoader(LOADER_ID, null, new LoaderManager.LoaderCallbacks<Cursor>() {
+                    @Override
+                    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+                        String url = "content://DataProvider/video";
+                        CursorLoader curLoader = new CursorLoader(getContext(), Uri.parse(url), null, null, null, "_id");
+                        rv.getAdapter().notifyDataSetChanged();
+                        return curLoader;
+                    }
+
+                    @Override
+                    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+                        c=data;
+                        rv.getAdapter().notifyDataSetChanged();
+
+                    }
+
+                    @Override
+                    public void onLoaderReset(Loader<Cursor> loader) {
+
+                    }
+                }
+
+        );
 
 
         return v;
@@ -109,7 +168,7 @@ public class Stored extends Fragment {
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView title,place,date;
+        public TextView title,place,date,empty;
 
         public MyViewHolder(View view) {
             super(view);
@@ -117,6 +176,7 @@ public class Stored extends Fragment {
             title = (TextView) view.findViewById(R.id.list_title);
             place=(TextView)view.findViewById(R.id.place);
             date=(TextView)view.findViewById(R.id.date);
+            empty=(TextView)view.findViewById(R.id.empty_view);
 
 
         }

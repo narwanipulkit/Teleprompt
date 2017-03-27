@@ -7,18 +7,50 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.support.v4.app.LoaderManager;
+import android.content.CursorLoader;
+import android.content.Loader;
+import android.support.v4.widget.CursorAdapter;
+
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
-public class SelectScript extends AppCompatActivity {
+public class SelectScript extends AppCompatActivity implements View.OnClickListener {
 
     Cursor c;
     RecyclerView rv;
+    Loader<Cursor> cursorLoader;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cursorLoader=getLoaderManager().restartLoader(Scripts.LOADER_ID,null, new android.app.LoaderManager.LoaderCallbacks<Cursor>(){
+            @Override
+            public android.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
+                String url = "content://DataProvider/data";
+                CursorLoader curLoader = new CursorLoader(getBaseContext(), Uri.parse(url), null, null, null, "_id");
+                rv.getAdapter().notifyDataSetChanged();
+                return curLoader;
+            }
+
+            @Override
+            public void onLoadFinished(android.content.Loader<Cursor> loader, Cursor cursor) {
+                c=cursor;
+                rv.getAdapter().notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onLoaderReset(android.content.Loader<Cursor> loader) {
+
+            }
+
+        });
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -34,13 +66,9 @@ public class SelectScript extends AppCompatActivity {
         Bundle bun=getIntent().getExtras();
         to=bun.getString("to");
         FloatingActionButton n=(FloatingActionButton)findViewById(R.id.newScript);
-        n.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i=new Intent(SelectScript.this,Script.class);
-                startActivityForResult(i,3);
-            }
-        });
+        n.setOnClickListener(this);
+        FloatingActionButton d=(FloatingActionButton)findViewById(R.id.drive);
+        d.setOnClickListener(this);
         rv=(RecyclerView)findViewById(R.id.recycler);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         rv.setLayoutManager(mLayoutManager);
@@ -63,16 +91,49 @@ public class SelectScript extends AppCompatActivity {
 
             @Override
             public int getItemCount() {
-                String u="content://DataProvider/data";
-                String projection[]={"(_id","title","data"};
-                Uri reqUri=Uri.parse(u);
-                c=managedQuery(reqUri,null,null,null,"title");
                 if(c==null)
                     return 0;
                 return c.getCount();
             }
         });
+        cursorLoader=getLoaderManager().initLoader(Scripts.LOADER_ID,null, new android.app.LoaderManager.LoaderCallbacks<Cursor>(){
+            @Override
+            public android.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
+                String url = "content://DataProvider/data";
+                CursorLoader curLoader = new CursorLoader(getBaseContext(), Uri.parse(url), null, null, null, "_id");
+                rv.getAdapter().notifyDataSetChanged();
+                return curLoader;
+            }
 
+            @Override
+            public void onLoadFinished(android.content.Loader<Cursor> loader, Cursor cursor) {
+                c=cursor;
+                rv.getAdapter().notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onLoaderReset(android.content.Loader<Cursor> loader) {
+
+            }
+
+        });
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent i;
+        switch (view.getId()){
+            case R.id.newScript:
+                i=new Intent(SelectScript.this,Script.class);
+                startActivityForResult(i,3);
+                break;
+            case R.id.drive:
+                i=new Intent(SelectScript.this,DriveSync.class);
+                startActivity(i);
+                break;
+        }
     }
 
 

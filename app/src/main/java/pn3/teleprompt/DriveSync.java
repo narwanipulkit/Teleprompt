@@ -7,10 +7,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -107,34 +110,46 @@ public class DriveSync extends AppCompatActivity implements GoogleApiClient.Conn
         @Override
         protected String doInBackground(DriveId... driveIds) {
 
-            DriveFile df=driveIds[0].asDriveFile();
-            DriveApi.DriveContentsResult res= df.open(mGoogleApiClient,DriveFile.MODE_READ_ONLY,null).await();
-            DriveContents con=res.getDriveContents();
-            BufferedReader br=new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String a;
-            String result=new String();
-            try {
-                while((a=br.readLine())!=null){
-                    result+=a;
+            if(driveIds[0]!=null) {
+                DriveFile df = driveIds[0].asDriveFile();
+                DriveApi.DriveContentsResult res = df.open(mGoogleApiClient, DriveFile.MODE_READ_ONLY, null).await();
+                DriveContents con = res.getDriveContents();
+                BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String a;
+                String result = new String();
+                try {
+                    while ((a = br.readLine()) != null) {
+                        result += a;
 
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+
+
+                return result;
+            }
+            else{
+                return "nf";
             }
 
-
-            return result;
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            progress.setVisibility(View.GONE);
-            Intent i=new Intent(DriveSync.this,Script.class);
-            i.putExtra("title","");
-            i.putExtra("data",s);
-            i.putExtra("mode","new");
-            startActivity(i);
+            if(s.equals("nf")){
+                Toast.makeText(getBaseContext(),"Error Connecting",Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            else {
+                progress.setVisibility(View.GONE);
+                Intent i = new Intent(DriveSync.this, Script.class);
+                i.putExtra("title", "");
+                i.putExtra("data", s);
+                i.putExtra("mode", "new");
+                startActivity(i);
+            }
 
 
         }

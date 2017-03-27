@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -21,19 +25,48 @@ import android.widget.TextView;
 import java.io.File;
 
 
-public class Scripts extends Fragment {
+public class Scripts extends Fragment  {
 
 
     String to;
+    int first=0;
+    static final int LOADER_ID=1;
     RecyclerView r;
+    Loader<Cursor> cursorLoader;
+
     @Override
     public void onResume() {
         super.onResume();
-        r.getAdapter().notifyDataSetChanged();
+
+        if(first==1) {
+            Log.e("OnRecieve","first==1");
+            cursorLoader = getLoaderManager().restartLoader(LOADER_ID, null, new LoaderManager.LoaderCallbacks<Cursor>() {
+                @Override
+                public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+                    String url = "content://DataProvider/data";
+                    CursorLoader curLoader = new CursorLoader(getContext(), Uri.parse(url), null, null, null, "_id");
+                    r.getAdapter().notifyDataSetChanged();
+                    return curLoader;
+                }
+
+                @Override
+                public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+                    c=data;
+                    r.getAdapter().notifyDataSetChanged();
+
+                }
+
+                @Override
+                public void onLoaderReset(Loader<Cursor> loader) {
+
+                }
+            });
+        }
+
+
 
 
     }
-
 
     public Scripts() {
         // Required empty public constructor
@@ -48,6 +81,38 @@ public class Scripts extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+        String[] columns={"data","title","data"};
+        int[] views={R.id.list_title,R.id.list_prev};
+        cursorLoader=getLoaderManager().initLoader(LOADER_ID, null, new LoaderManager.LoaderCallbacks<Cursor>() {
+            @Override
+            public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+                String url="content://DataProvider/data";
+                first=1;
+                CursorLoader curLoader=new CursorLoader(getContext(),Uri.parse(url),null,null,null,"_id");
+                return curLoader;
+
+            }
+
+            @Override
+            public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+                c=data;
+                r.getAdapter().notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onLoaderReset(Loader<Cursor> loader) {
+
+            }
+        });
+        SimpleCursorAdapter simpleCursorAdapter=new SimpleCursorAdapter(getContext(),R.layout.fragment_scripts,null,columns,views,0);
+
+
+
+
 
     }
     Cursor c;
@@ -81,6 +146,29 @@ public class Scripts extends Fragment {
                     Log.e("id:", String.valueOf(view.id));
                     getActivity().getContentResolver().delete(Uri.parse(url),"_id =="+view.id,null);
                     rv.getAdapter().notifyItemRemoved(viewHolder.getPosition());
+                    cursorLoader=getLoaderManager().restartLoader(LOADER_ID, null, new LoaderManager.LoaderCallbacks<Cursor>() {
+                        @Override
+                        public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+                            String url = "content://DataProvider/data";
+                            CursorLoader curLoader = new CursorLoader(getContext(), Uri.parse(url), null, null, null, "_id");
+                            r.getAdapter().notifyDataSetChanged();
+                            return curLoader;
+                        }
+
+                        @Override
+                        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+                            c=data;
+                            r.getAdapter().notifyDataSetChanged();
+
+                        }
+
+                        @Override
+                        public void onLoaderReset(Loader<Cursor> loader) {
+
+                        }
+                    });
+
+
                     Snackbar.make(v,"Text Removed",Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -102,15 +190,20 @@ public class Scripts extends Fragment {
         ItemTouchHelper ith=new ItemTouchHelper(touchCallback);
         ith.attachToRecyclerView(rv);
         rv.setAdapter(new RecyclerView.Adapter() {
+
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 View v=LayoutInflater.from(parent.getContext()).inflate(R.layout.item_scripts,parent,false);
                 return new MyViewHolder(v);
+
             }
 
             @Override
             public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
                 MyViewHolder mv= (MyViewHolder)holder;
+                if(getItemCount()==0){
+                    mv.empty.setVisibility(View.VISIBLE);
+                }
                 c.moveToPosition(position);
                 mv.id=c.getInt(0);
                 mv.title.setText(c.getString(1));
@@ -120,11 +213,6 @@ public class Scripts extends Fragment {
 
             @Override
             public int getItemCount() {
-                String u="content://DataProvider/data";
-                String projection[]={"(_id","title","data"};
-                Uri reqUri=Uri.parse(u);
-                c=getActivity().getContentResolver().query(reqUri,null,null,null,"_id");
-                Log.e("Count", String.valueOf(c.getCount()));
                 if(c==null)
                     return 0;
                 return c.getCount();
@@ -146,8 +234,9 @@ public class Scripts extends Fragment {
         super.onDetach();
     }
 
+
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView title, prev;
+        public TextView title, prev,empty;
         public int id;
 
 
@@ -156,6 +245,7 @@ public class Scripts extends Fragment {
             view.setOnClickListener(this);
             title = (TextView) view.findViewById(R.id.list_title);
             prev = (TextView) view.findViewById(R.id.list_prev);
+            empty=(TextView)view.findViewById(R.id.empty_view);
 
         }
 

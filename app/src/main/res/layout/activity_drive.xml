@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_drive"
     android:layout_width="match_parent"
@@ -11,15 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:layout_gravity="center_vertical"
-        android:text="Please wait while we get data from your Google Drive."
+        android:text="@string/loading_drive"
         android:textSize="25sp"
         />
 
     <ProgressBar
         android:id="@+id/progress"
-        android:contentDescription="Waiting for Google Drive."
+        android:contentDescription="@string/drive_description"
         android:layout_gravity="center"
         android:layout_width="70dp"
         android:layout_height="70dp" />

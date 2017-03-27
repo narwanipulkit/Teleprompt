@@ -155,7 +155,7 @@ public class Video extends AppCompatActivity implements GoogleApiClient.OnConnec
         Bundle mBundle = getIntent().getExtras();
         String data = mBundle.getString("data");
         mVisible = true;
-        mControlsView = findViewById(R.id.fullscreen_content_controls);
+
         TextView d = (TextView) findViewById(R.id.data);
         sv = (ScrollView) findViewById(R.id.scroll_data);
         d.setText(data);
@@ -203,9 +203,6 @@ public class Video extends AppCompatActivity implements GoogleApiClient.OnConnec
                                 String date=d.toString();
                                 String filename="video" + String.valueOf(d.getDate()) + String.valueOf(d.getTime())+ ".mp4";
                                 video.renameTo(new File(dir, filename));
-
-
-
                                 saveDataAndPlace(filename,date);
 
 
@@ -220,18 +217,13 @@ public class Video extends AppCompatActivity implements GoogleApiClient.OnConnec
                     });
                     stopScroll();
                     camera.stopRecordingVideo();
-
                 }
-
-
-
-
             }
         });
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
     }
 
     final Handler h=new Handler();
@@ -250,27 +242,33 @@ public class Video extends AppCompatActivity implements GoogleApiClient.OnConnec
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},2);
 
         }
-        PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi
-                .getCurrentPlace(mGoogleApiClient, null);
-        result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>() {
-            @Override
-            public void onResult(PlaceLikelihoodBuffer likelyPlaces) {
-                PlaceLikelihood max=likelyPlaces.get(0);
-                for (PlaceLikelihood placeLikelihood : likelyPlaces) {
-                    if(placeLikelihood.getLikelihood()>max.getLikelihood()){
-                        max=placeLikelihood;
+
+            PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi
+                    .getCurrentPlace(mGoogleApiClient, null);
+            result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>() {
+                @Override
+                public void onResult(PlaceLikelihoodBuffer likelyPlaces) {
+                    if (likelyPlaces.getCount() > 0) {
+                        PlaceLikelihood max = likelyPlaces.get(0);
+                        for (PlaceLikelihood placeLikelihood : likelyPlaces) {
+                            if (placeLikelihood.getLikelihood() > max.getLikelihood()) {
+                                max = placeLikelihood;
+                            }
+                        }
+                        Log.e("Place:", String.valueOf(max.getPlace().getName()));
+                        ContentValues cv = new ContentValues();
+                        cv.put("title", filename);
+                        cv.put("place", String.valueOf(max.getPlace().getName()));
+                        cv.put("date", date);
+                        String url = "content://DataProvider/video";
+                        getContentResolver().insert(Uri.parse(url), cv);
+                        likelyPlaces.release();
+                    }
+                    else{
+                        Toast.makeText(getBaseContext(),"Error.Check Your Connection",Toast.LENGTH_SHORT).show();
                     }
                 }
-                Log.e("Place:", String.valueOf(max.getPlace().getName()));
-                ContentValues cv=new ContentValues();
-                cv.put("title",filename);
-                cv.put("place",String.valueOf(max.getPlace().getName()));
-                cv.put("date",date);
-                String url="content://DataProvider/video";
-                getContentResolver().insert(Uri.parse(url),cv);
-                likelyPlaces.release();
-            }
-        });
+            });
 
     }
 
@@ -318,7 +316,7 @@ public class Video extends AppCompatActivity implements GoogleApiClient.OnConnec
         if (actionBar != null) {
             actionBar.hide();
         }
-        mControlsView.setVisibility(View.GONE);
+
         mVisible = false;
 
         // Schedule a runnable to remove the status and navigation bar after a delay

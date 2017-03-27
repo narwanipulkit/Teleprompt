@@ -19,7 +19,7 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:contentDescription="toolbar"
+            android:contentDescription="@string/toolbar_description"
             android:nextFocusDown="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -30,7 +30,7 @@
         </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout
-            android:contentDescription="Tabs"
+            android:contentDescription="@string/tabs_description"
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -48,14 +48,12 @@
                  />
 
         <com.google.android.gms.ads.AdView
-            android:contentDescription="Ad"
+            android:contentDescription="@string/ads_description"
             android:id="@+id/adView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|bottom"
             android:layout_marginBottom="70dp"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
             ads:adSize="BANNER"
             ads:adUnitId="@string/banner_ad_unit_id"/>
         </FrameLayout>

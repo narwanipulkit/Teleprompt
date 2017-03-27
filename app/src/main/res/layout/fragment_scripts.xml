@@ -8,7 +8,7 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
-        android:contentDescription="List of scripts"
+        android:contentDescription="@string/recycler_script_description"
         android:nextFocusDown="@+id/fab_menu2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
@@ -21,11 +21,11 @@
         android:layout_gravity="center"
         android:textSize="25sp"
         android:visibility="gone"
-        android:text="No scripts yet. Start by using the + button."/>
+        android:text="@string/no_script"/>
     
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/fab_menu2"
-        android:contentDescription="new Script"
+        android:contentDescription="@string/fab_menu_description"
         android:nextFocusUp="@+id/drive_sync"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:onClick="newScript"
-            android:contentDescription="Create New Fab"
+            android:contentDescription="@string/new_description"
             tools:context="pn3.teleprompt.Scripts"
             app:fab_icon="@drawable/ic_note_add_white_48dp"
 
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:onClick="driveSync"
-            android:contentDescription="Drive sync fab"
+            android:contentDescription="@string/new_drive_description"
             app:fab_icon="@drawable/ic_cloud_download_white_48dp"
             />
     </com.getbase.floatingactionbutton.FloatingActionsMenu>

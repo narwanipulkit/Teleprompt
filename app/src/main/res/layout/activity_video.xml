@@ -15,7 +15,7 @@
         android:layout_height="match_parent">
         <com.flurgle.camerakit.CameraView
             android:id="@+id/camera"
-            android:contentDescription="Camera"
+            android:contentDescription="@string/camera_description"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         <View
@@ -31,7 +31,7 @@
             android:layout_width="210dp"
             android:textColor="#fff"
             android:contentDescription="Data"
-            android:text="ABCDEEF"
+            android:text=""
             android:textSize="70sp"
             android:layout_height="wrap_content" />
         </ScrollView>
@@ -51,7 +51,7 @@
             android:layout_marginBottom="16dp"
             android:textColor="#00000000"
             android:text="R"
-            android:contentDescription="Record Button"
+            android:contentDescription="@string/record_description"
             android:layout_gravity="center_horizontal|bottom"
             android:background="@drawable/round_button"
             android:id="@+id/record"/>
