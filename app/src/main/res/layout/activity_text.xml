@@ -20,7 +20,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:textSize="40sp"
+                android:textSize="@dimen/teleprompt_text_size"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="26dp"
                 android:id="@+id/data" />
@@ -30,10 +30,10 @@
         android:id="@+id/option"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/button_margin"
         android:contentDescription="@string/start_button_description"
         android:layout_gravity="bottom|center_horizontal"
         android:text="@string/start_button"
-        android:textColor="#fff"
-        android:background="#2ba"/>
+        android:textColor="@color/white"
+        android:background="@color/button_color"/>
 </FrameLayout>

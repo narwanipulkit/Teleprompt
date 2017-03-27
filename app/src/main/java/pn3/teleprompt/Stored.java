@@ -2,6 +2,10 @@ package pn3.teleprompt;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.media.Image;
+import android.media.ThumbnailUtils;
+import android.provider.MediaStore;
 import android.support.v4.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,6 +23,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +34,7 @@ public class Stored extends Fragment {
 
     RecyclerView rv;
     Loader<Cursor> cursorLoader;
+
     Cursor c;
     static final int LOADER_ID=3;
 
@@ -99,6 +105,9 @@ public class Stored extends Fragment {
             public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
                 MyViewHolder mv= (MyViewHolder)holder;
                 File dir=new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES),"teleprompt");
+                mv.f=new File(dir,dir.list()[mv.getPosition()]);
+                Bitmap b= ThumbnailUtils.createVideoThumbnail(mv.f.getAbsolutePath(), MediaStore.Video.Thumbnails.MICRO_KIND);
+                mv.thumbnail.setImageBitmap(b);
                 mv.title.setText(dir.list()[position]);
                 if(getItemCount()==0){
                     mv.empty.setVisibility(View.VISIBLE);
@@ -169,14 +178,20 @@ public class Stored extends Fragment {
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView title,place,date,empty;
+        public ImageView thumbnail;
+        public File f;
 
         public MyViewHolder(View view) {
             super(view);
             view.setOnClickListener(this);
+
+
+
             title = (TextView) view.findViewById(R.id.list_title);
             place=(TextView)view.findViewById(R.id.place);
             date=(TextView)view.findViewById(R.id.date);
             empty=(TextView)view.findViewById(R.id.empty_view);
+            thumbnail=(ImageView)view.findViewById(R.id.thumb_img);
 
 
         }
@@ -184,8 +199,6 @@ public class Stored extends Fragment {
         @Override
         public void onClick(View view) {
 
-            File dir=new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES),"teleprompt");
-            File f=new File(dir,dir.list()[getPosition()]);
 
 
             MimeTypeMap myMime = MimeTypeMap.getSingleton();

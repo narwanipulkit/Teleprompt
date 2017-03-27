@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|bottom"
-            android:layout_marginBottom="70dp"
+            android:layout_marginBottom="@dimen/ad_bottom_margin"
             ads:adSize="BANNER"
             ads:adUnitId="@string/banner_ad_unit_id"/>
         </FrameLayout>

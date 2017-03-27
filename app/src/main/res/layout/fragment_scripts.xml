@@ -17,9 +17,9 @@
         android:id="@+id/empty_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/basic_margin"
         android:layout_gravity="center"
-        android:textSize="25sp"
+        android:textSize="@dimen/big_text"
         android:visibility="gone"
         android:text="@string/no_script"/>
     
@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="@dimen/fifty"
         app:fab_addButtonColorNormal="@color/colorAccent"
         tools:context="pn3.teleprompt.Scripts"
         >

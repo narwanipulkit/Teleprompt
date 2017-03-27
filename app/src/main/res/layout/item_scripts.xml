@@ -7,20 +7,20 @@
         android:id="@+id/list_title"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:textColor="#333"
-        android:layout_margin="16dp"
-        android:textSize="25sp"
+        android:textColor="@color/item_text_color"
+        android:layout_margin="@dimen/basic_margin"
+        android:textSize="@dimen/head_text_size"
         android:text=""/>
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/list_prev"
-        android:layout_height="15dp"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="@dimen/basic_margin"
         android:text=""/>
 
     <View android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_height="2dp"
-        android:background="#ccc"/>
+        android:layout_margin="@dimen/ten"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/line_color"/>
 
 </LinearLayout>

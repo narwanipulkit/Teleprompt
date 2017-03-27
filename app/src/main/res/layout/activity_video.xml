@@ -19,8 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         <View
-            android:layout_width="210dp"
-            android:background="#77111111"
+            android:layout_width="@dimen/container_size"
+            android:background="@color/container_color"
             android:layout_height="match_parent"/>
         <ScrollView
             android:id="@+id/scroll_data"
@@ -28,11 +28,11 @@
             android:layout_height="match_parent">
         <TextView
             android:id="@+id/data"
-            android:layout_width="210dp"
-            android:textColor="#fff"
-            android:contentDescription="Data"
+            android:layout_width="@dimen/container_size"
+            android:textColor="@color/white"
+            android:contentDescription="@string/data_description"
             android:text=""
-            android:textSize="70sp"
+            android:textSize="@dimen/main_text_size"
             android:layout_height="wrap_content" />
         </ScrollView>
     </FrameLayout>
@@ -46,9 +46,9 @@
 
 
         <Button
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="16dp"
+            android:layout_width="@dimen/record_size"
+            android:layout_height="@dimen/record_size"
+            android:layout_marginBottom="@dimen/basic_margin"
             android:textColor="#00000000"
             android:text="R"
             android:contentDescription="@string/record_description"

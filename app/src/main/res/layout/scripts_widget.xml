@@ -1,5 +1,5 @@
 <ListView android:layout_width="match_parent"
     android:id="@+id/list"
     android:layout_height="match_parent"
-    android:background="#dddddd"
+    android:background="@color/background_widget"
     xmlns:android="http://schemas.android.com/apk/res/android" />

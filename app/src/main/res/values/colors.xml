@@ -5,4 +5,10 @@
     <color name="colorAccent">#FF4081</color>
     <color name="white">#fff</color>
     <color name="black_overlay">#66000000</color>
+    <color name="button_color">#2ba</color>
+    <color name="container_color">#77111111</color>
+    <color name="item_text_color">#333</color>
+    <color name="line_color">#ccc</color>
+    <color name="background_widget">#dddddd</color>
+
 </resources>

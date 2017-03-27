@@ -6,14 +6,14 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="@dimen/inner_margin"
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/thumb_img"
             android:layout_width="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_height="wrap_content"
-            android:background="@drawable/video_icon"/>
+            android:layout_height="wrap_content" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="vertical"
@@ -24,18 +24,18 @@
                 android:nextFocusDown="@+id/place"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:textSize="20sp"
+                android:layout_marginStart="@dimen/inner_margin"
+                android:layout_marginTop="@dimen/basic_margin"
+                android:textSize="@dimen/head_text_size"
                 />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="@dimen/basic_margin"
                 android:id="@+id/place"/>
             <TextView
                 android:layout_width="match_parent"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="@dimen/basic_margin"
                 android:layout_height="wrap_content"
                 android:id="@+id/date"/>
 
@@ -43,8 +43,8 @@
 
 </LinearLayout>
     <View android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_height="2dp"
-        android:background="#ccc"/>
+        android:layout_margin="@dimen/ten"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/line_color"/>
 
 </LinearLayout>

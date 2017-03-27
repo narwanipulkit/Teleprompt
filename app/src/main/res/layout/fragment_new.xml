@@ -17,8 +17,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:layout_margin="16dp"
+        android:textSize="@dimen/big_text"
+        android:layout_margin="@dimen/basic_margin"
         android:text="@string/q_begin" />
 
     <android.support.v7.widget.CardView
@@ -26,19 +26,19 @@
         android:nextFocusDown="@+id/text_card"
         android:layout_width="match_parent"
         android:contentDescription="@string/start_vid_description"
-        android:layout_margin="16dp"
-        android:layout_height="140dp">
+        android:layout_margin="@dimen/basic_margin"
+        android:layout_height="@dimen/card_size">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/inner_margin"
             android:layout_height="match_parent">
 
         <ImageView
-            android:layout_width="80dp"
+            android:layout_width="@dimen/card_image_size"
             android:src="@drawable/video"
             android:layout_gravity="center_vertical"
-            android:layout_height="80dp" />
+            android:layout_height="@dimen/card_image_size" />
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
@@ -46,16 +46,16 @@
             android:layout_height="match_parent">
         <TextView
             android:layout_width="match_parent"
-            android:layout_marginStart="16dp"
-            android:textSize="30sp"
+            android:layout_marginStart="@dimen/basic_margin"
+            android:textSize="@dimen/big_text"
             android:layout_height="wrap_content"
             android:text="@string/video"
             />
 
             <TextView
                 android:layout_width="match_parent"
-                android:textSize="18sp"
-                android:layout_marginLeft="16dp"
+                android:textSize="@dimen/text_size"
+                android:layout_marginStart="@dimen/basic_margin"
                 android:layout_height="wrap_content"
                 android:text="@string/vid_intro"
                 />
@@ -69,20 +69,20 @@
     <android.support.v7.widget.CardView
         android:id="@+id/text_card"
         android:layout_width="match_parent"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/basic_margin"
         android:contentDescription="@string/start_text_description"
-        android:layout_height="140dp">
+        android:layout_height="@dimen/card_size">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/inner_margin"
             android:layout_height="match_parent">
 
             <ImageView
-                android:layout_width="80dp"
+                android:layout_width="@dimen/card_image_size"
                 android:src="@drawable/text"
                 android:layout_gravity="center_vertical"
-                android:layout_height="80dp" />
+                android:layout_height="@dimen/card_image_size" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
@@ -90,16 +90,16 @@
                 android:layout_height="match_parent">
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_marginStart="16dp"
-                    android:textSize="30sp"
+                    android:layout_marginStart="@dimen/basic_margin"
+                    android:textSize="@dimen/big_text"
                     android:layout_height="wrap_content"
                     android:text="@string/text"
                     />
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:textSize="18sp"
-                    android:layout_marginStart="16dp"
+                    android:textSize="@dimen/text_size"
+                    android:layout_marginStart="@dimen/basic_margin"
                     android:layout_gravity="bottom"
                     android:layout_height="wrap_content"
                     android:text="@string/text_intro"
@@ -110,11 +110,10 @@
 
 
     </android.support.v7.widget.CardView>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="90dp"></View>
-
-
+        android:layout_height="@dimen/empty_view"/>
 
 </LinearLayout>
 </ScrollView>
