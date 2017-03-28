@@ -37,7 +37,7 @@ public class Stored extends Fragment {
 
     Cursor c;
     static final int LOADER_ID=3;
-
+    TextView empty;
     public Stored() {
         // Required empty public constructor
     }
@@ -89,15 +89,16 @@ public class Stored extends Fragment {
                              Bundle savedInstanceState) {
 
         View v=inflater.inflate(R.layout.fragment_stored,container,false);
+        empty=(TextView)v.findViewById(R.id.empty_view);
         rv=(RecyclerView)v.findViewById(R.id.recycler);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         rv.setLayoutManager(mLayoutManager);
+
 
         rv.setAdapter(new RecyclerView.Adapter() {
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 View v=LayoutInflater.from(parent.getContext()).inflate(R.layout.item_stored,parent,false);
-
                 return new MyViewHolder(v);
             }
 
@@ -129,10 +130,21 @@ public class Stored extends Fragment {
             @Override
             public int getItemCount() {
                 File dir=new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES),"teleprompt");
-                if(dir.list()!=null)
+                if(dir.list()!=null) {
+                    if (dir.list().length == 0) {
+                        empty.setVisibility(View.VISIBLE);
+
+                    }
+                    else{
+                        empty.setVisibility(View.GONE);
+
+                    }
                     return dir.list().length;
-                else
+                }
+                else {
+                    empty.setVisibility(View.VISIBLE);
                     return 0;
+                }
             }
         });
 

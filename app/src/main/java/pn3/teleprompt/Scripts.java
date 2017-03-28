@@ -33,6 +33,7 @@ public class Scripts extends Fragment  {
     static final int LOADER_ID=1;
     RecyclerView r;
     Loader<Cursor> cursorLoader;
+    TextView empty;
 
     @Override
     public void onResume() {
@@ -40,34 +41,39 @@ public class Scripts extends Fragment  {
 
         if(first==1) {
             Log.e("OnRecieve","first==1");
-            cursorLoader = getLoaderManager().restartLoader(LOADER_ID, null, new LoaderManager.LoaderCallbacks<Cursor>() {
-                @Override
-                public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-                    String url = "content://DataProvider/data";
-                    CursorLoader curLoader = new CursorLoader(getContext(), Uri.parse(url), null, null, null, "_id");
-                    r.getAdapter().notifyDataSetChanged();
-                    return curLoader;
-                }
-
-                @Override
-                public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-                    c=data;
-                    r.getAdapter().notifyDataSetChanged();
-
-                }
-
-                @Override
-                public void onLoaderReset(Loader<Cursor> loader) {
-
-                }
-            });
+            restartLoader();
         }
+
 
 
 
 
     }
 
+
+    public void restartLoader(){
+        cursorLoader = getLoaderManager().restartLoader(LOADER_ID, null, new LoaderManager.LoaderCallbacks<Cursor>() {
+            @Override
+            public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+                String url = "content://DataProvider/data";
+                CursorLoader curLoader = new CursorLoader(getContext(), Uri.parse(url), null, null, null, "_id");
+                r.getAdapter().notifyDataSetChanged();
+                return curLoader;
+            }
+
+            @Override
+            public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+                c=data;
+                r.getAdapter().notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onLoaderReset(Loader<Cursor> loader) {
+
+            }
+        });
+    }
     public Scripts() {
         // Required empty public constructor
     }
@@ -124,6 +130,7 @@ public class Scripts extends Fragment  {
         final View v=inflater.inflate(R.layout.fragment_scripts,container,false);
         r=(RecyclerView)v.findViewById(R.id.recycler);
         final RecyclerView rv=(RecyclerView)v.findViewById(R.id.recycler);
+        empty=(TextView)v.findViewById(R.id.empty_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         rv.setLayoutManager(mLayoutManager);
         ItemTouchHelper.SimpleCallback touchCallback=new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT){
@@ -146,27 +153,7 @@ public class Scripts extends Fragment  {
                     Log.e("id:", String.valueOf(view.id));
                     getActivity().getContentResolver().delete(Uri.parse(url),"_id =="+view.id,null);
                     rv.getAdapter().notifyItemRemoved(viewHolder.getPosition());
-                    cursorLoader=getLoaderManager().restartLoader(LOADER_ID, null, new LoaderManager.LoaderCallbacks<Cursor>() {
-                        @Override
-                        public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-                            String url = "content://DataProvider/data";
-                            CursorLoader curLoader = new CursorLoader(getContext(), Uri.parse(url), null, null, null, "_id");
-                            r.getAdapter().notifyDataSetChanged();
-                            return curLoader;
-                        }
-
-                        @Override
-                        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-                            c=data;
-                            r.getAdapter().notifyDataSetChanged();
-
-                        }
-
-                        @Override
-                        public void onLoaderReset(Loader<Cursor> loader) {
-
-                        }
-                    });
+                    restartLoader();
 
 
                     Snackbar.make(v,"Text Removed",Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
@@ -178,6 +165,7 @@ public class Scripts extends Fragment  {
                             cv.put("data",data);
                             String contentUrl="content://DataProvider/data";
                             getActivity().getContentResolver().insert(Uri.parse(contentUrl),cv);
+                            restartLoader();
                             rv.getAdapter().notifyItemInserted(id);
 
                         }
@@ -213,9 +201,19 @@ public class Scripts extends Fragment  {
 
             @Override
             public int getItemCount() {
-                if(c==null)
+                if(c==null) {
+                    empty.setVisibility(View.VISIBLE);
                     return 0;
-                return c.getCount();
+                }
+                else {
+                    if (c.getCount() == 0) {
+                        empty.setVisibility(View.VISIBLE);
+                        return 0;
+                    }
+                    empty.setVisibility(View.GONE);
+                    return c.getCount();
+
+                }
             }
         });
 
