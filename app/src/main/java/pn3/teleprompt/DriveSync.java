@@ -139,7 +139,7 @@ public class DriveSync extends AppCompatActivity implements GoogleApiClient.Conn
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             if(s.equals("nf")){
-                Toast.makeText(getBaseContext(),"Error Connecting",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(),getResources().getString(R.string.connection_error),Toast.LENGTH_SHORT).show();
                 finish();
             }
             else {

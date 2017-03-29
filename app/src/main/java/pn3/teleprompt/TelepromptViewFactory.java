@@ -62,7 +62,7 @@ public class TelepromptViewFactory implements RemoteViewsService.RemoteViewsFact
             rv=new RemoteViews(mContext.getPackageName(),R.layout.widget_item);
             rv.setInt(R.id.widget_title,"setBackgroundResource",android.R.color.holo_blue_dark);
             rv.setTextViewTextSize(R.id.widget_title, TypedValue.COMPLEX_UNIT_DIP,30);
-            rv.setTextViewText(R.id.widget_title," Teleprompt Scripts");
+            rv.setTextViewText(R.id.widget_title,mContext.getString(R.string.teleprompt_scripts));
             rv.setTextColor(R.id.widget_title,mContext.getResources().getColor(android.R.color.white));
 
         }

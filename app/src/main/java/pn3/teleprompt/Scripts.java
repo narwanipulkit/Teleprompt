@@ -156,7 +156,7 @@ public class Scripts extends Fragment  {
                     restartLoader();
 
 
-                    Snackbar.make(v,"Text Removed",Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
+                    Snackbar.make(v,getResources().getString(R.string.text_removed),Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             ContentValues cv=new ContentValues();

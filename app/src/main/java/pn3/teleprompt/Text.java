@@ -31,11 +31,11 @@ public class Text extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(ss.getText().toString().equals("Start")) {
-                    ss.setText("Stop");
+                    ss.setText(getString(R.string.stop));
                     startScroll();
                 }
                 else{
-                    ss.setText("Start");
+                    ss.setText(getString(R.string.start));
                     stopScroll();
                 }
             }

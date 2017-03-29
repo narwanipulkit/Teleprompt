@@ -47,6 +47,18 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
 
+    <string name="connection_error">Error Connecting</string>
+    <string name="error">Error.Check Your Connection</string>
+    <string name="no_app">"No application available for this type of file."</string>
+    <string name="video_error">"Error Writing The Video"</string>
+    <string name="text_removed">"Text Removed"</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="hidden_s">S</string>
+    <string name="hidden_r">R</string>
+    <string name="teleprompt_scripts"> Teleprompt Scripts</string>
+
+
 
 
 </resources>

@@ -173,6 +173,17 @@ public class Video extends AppCompatActivity implements GoogleApiClient.OnConnec
 
 
         final Button b = (Button) findViewById(R.id.record);
+        camera.setCameraListener(new CameraListener() {
+            @Override
+            public void onCameraOpened() {
+                super.onCameraOpened();
+            }
+
+            @Override
+            public void onCameraClosed() {
+                super.onCameraClosed();
+            }
+        });
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -181,11 +192,11 @@ public class Video extends AppCompatActivity implements GoogleApiClient.OnConnec
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         b.setBackground(getDrawable(R.drawable.square));
                     }
-                    b.setText("S");
+                    b.setText(getString(R.string.hidden_s));
                     camera.startRecordingVideo();
                     startScroll();
                 } else {
-                    b.setText("R");
+                    b.setText(getString(R.string.hidden_r));
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         b.setBackground(getDrawable(R.drawable.round_button));
                     }
@@ -210,7 +221,7 @@ public class Video extends AppCompatActivity implements GoogleApiClient.OnConnec
 
                             }
                             else{
-                                Snackbar.make(findViewById(R.id.vid_layout),"Error Writing The Video",Snackbar.LENGTH_LONG).show();
+                                Snackbar.make(findViewById(R.id.vid_layout),getResources().getString(R.string.video_error),Snackbar.LENGTH_LONG).show();
                             }
 
                         }
@@ -265,7 +276,7 @@ public class Video extends AppCompatActivity implements GoogleApiClient.OnConnec
                         likelyPlaces.release();
                     }
                     else{
-                        Toast.makeText(getBaseContext(),"Error.Check Your Connection",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(),getResources().getString(R.string.error),Toast.LENGTH_SHORT).show();
                     }
                 }
             });

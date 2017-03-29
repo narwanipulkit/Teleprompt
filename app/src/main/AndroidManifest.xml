@@ -35,7 +35,8 @@
             android:name=".Video"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_video"
-            android:theme="@style/FullscreenTheme" />
+            android:theme="@style/FullscreenTheme"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Script" />
 
         <provider

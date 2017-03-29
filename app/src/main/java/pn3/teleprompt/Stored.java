@@ -221,7 +221,7 @@ public class Stored extends Fragment {
             try {
                 getContext().startActivity(newIntent);
             } catch (ActivityNotFoundException e) {
-                Toast.makeText(getContext(), "No handler for this type of file.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getResources().getString(R.string.no_app), Toast.LENGTH_LONG).show();
             }
 
 
